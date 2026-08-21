@@ -26,7 +26,7 @@ class StudentController extends Controller
         'address'     => 'Baco',
         'contact'     => '09931453286',
         'skills'      => 'Batak lumambing',
-        'bio'         => 'papasa tayo',
+        'bio'         => 'papasa tayong lahat',
     ];
 
     /**
