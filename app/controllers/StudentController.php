@@ -25,7 +25,7 @@ class StudentController extends Controller
         'email'       => 'lordcedrick6@gmail.com',
         'address'     => 'Baco',
         'contact'     => '09931453286',
-        'skills'      => 'Batak lumambing',
+        'skills'      => 'Bataklumambing',
         'bio'         => 'papasa tayong lahat',
     ];
 
