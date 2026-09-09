@@ -82,52 +82,5 @@ $esc = static function ($value) {
             .directory-head { align-items: stretch; flex-direction: column; padding: 18px; }
             .search { width: 100%; }
             th, td { padding-right: 18px; padding-left: 18px; }
-        }
-    </style>
-</head>
-<body>
-    <div class="shell">
-        <aside>
-            <a class="brand" href="<?= $esc(base_url()); ?>"><span class="brand-mark">L</span><span class="brand-name">LavaLust</span></a>
-            <p class="nav-label">Workspace</p>
-            <nav aria-label="Main navigation">
-                <a href="<?= $esc(base_url()); ?>"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m3 11 9-8 9 8v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-9Z"/><path d="M9 21v-6h6v6"/></svg>Overview</a>
-                <a class="active" href="<?= $esc(base_url('users')); ?>" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>Members</a>
-            </nav>
-            <p class="sidebar-foot">A considered place for your community.</p>
-        </aside>
-        <main>
-            <div class="intro"><div class="intro-copy"><p class="eyebrow">Community / directory</p><h1>Meet the members.</h1><p class="subtitle">Keep an eye on the people shaping your LavaLust space.</p></div><p class="date">Updated today<br><strong><?= $esc(date('F j, Y')); ?></strong></p></div>
-            <section class="stats" aria-label="Member statistics">
-                <div class="stat"><span class="stat-label">Total members</span><strong class="stat-value"><?= $user_count; ?></strong></div>
-                <div class="stat"><span class="stat-label">Active profiles</span><strong class="stat-value"><?= $active_count; ?></strong></div>
-                <div class="stat"><span class="stat-label">Directory status</span><strong class="stat-value">Open</strong></div>
-            </section>
-            <section class="directory" aria-label="Users list">
-                <div class="directory-head"><div><span class="directory-title">All members</span><span class="directory-count" id="result-count"><?= $user_count; ?> results</span></div><label class="search" for="user-search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><input id="user-search" type="search" placeholder="Search members..." autocomplete="off"></label></div>
-                <div class="table-wrap"><table><thead><tr><th scope="col">Member</th><th scope="col">Email</th><th scope="col">Username</th><th scope="col">Member ID</th></tr></thead><tbody id="user-rows">
-                    <?php foreach ($users as $user): ?>
-                        <?php $initials = strtoupper(substr($user['firstname'] ?? '', 0, 1) . substr($user['lastname'] ?? '', 0, 1)); ?>
-                        <tr data-search="<?= $esc(($user['firstname'] ?? '') . ' ' . ($user['lastname'] ?? '') . ' ' . ($user['email'] ?? '') . ' ' . ($user['username'] ?? '')); ?>"><td><div class="person"><span class="avatar"><?= $esc($initials); ?></span><span class="name"><?= $esc(($user['firstname'] ?? '') . ' ' . ($user['lastname'] ?? '')); ?></span></div></td><td class="email"><?= $esc($user['email'] ?? ''); ?></td><td class="username">@<?= $esc($user['username'] ?? ''); ?></td><td class="id">#<?= $esc($user['id'] ?? ''); ?></td></tr>
-                    <?php endforeach; ?>
-                    <tr class="no-results" id="no-results"><td colspan="4" class="empty">No members match your search.</td></tr>
-                    <?php if (!$users): ?><tr><td colspan="4" class="empty">No users found.</td></tr><?php endif; ?>
-                </tbody></table></div>
-            </section>
-        </main>
-    </div>
-    <script>
-        const search = document.getElementById('user-search');
-        const rows = [...document.querySelectorAll('#user-rows tr[data-search]')];
-        const resultCount = document.getElementById('result-count');
-        const noResults = document.getElementById('no-results');
-        search.addEventListener('input', function () {
-            const query = this.value.trim().toLowerCase();
-            let visible = 0;
-            rows.forEach(function (row) { const matches = row.dataset.search.toLowerCase().includes(query); row.hidden = !matches; if (matches) visible++; });
-            noResults.style.display = visible || !rows.length ? 'none' : 'table-row';
-            resultCount.textContent = visible + (visible === 1 ? ' result' : ' results');
-        });
-    </script>
 </body>
 </html>
